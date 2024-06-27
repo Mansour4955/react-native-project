@@ -8,18 +8,18 @@ const Stepper = () => {
   const navigation = useNavigation();
   const { currentStep, complete } = useSelector((state) => state.register);
 
-  // useEffect(() => {
-  //   if (currentStep === 2) {
-  //     navigation.navigate('RegisterNeeds');
-  //   } else if (currentStep === 3) {
-  //     navigation.navigate('RegisterDocuments');
-  //   } else if (currentStep === 4) {
-  //     navigation.navigate('RegisterWantedFeature');
-  //   }
-  //   if (complete) {
-  //     navigation.navigate('Login');
-  //   }
-  // }, [currentStep, complete, navigation]);
+  useEffect(() => {
+    if (currentStep === 2) {
+      navigation.navigate('RegisterNeeds');
+    } else if (currentStep === 3) {
+      navigation.navigate('RegisterDocuments');
+    } else if (currentStep === 4) {
+      navigation.navigate('RegisterWantedFeature');
+    }
+    if (complete) {
+      navigation.navigate('Login');
+    }
+  }, [currentStep, complete, navigation]);
 
   const steps = [
     'User Information',
@@ -36,24 +36,16 @@ const Stepper = () => {
             <View
               style={[
                 styles.stepCircle,
-                (index + 1 < currentStep || complete) && styles.completeStep,
-                currentStep === index + 1 && styles.activeStep,
+                index + 1 < currentStep && styles.completeStep,
+                (currentStep === index + 1 || complete) && styles.activeStep,
               ]}
             >
-              {index + 1 < currentStep || complete ? (
+              {(index + 1 < currentStep || (complete && index + 1 <= 4)) ? (
                 <Icon name="check" size={24} color="#fff" />
               ) : (
                 <Text style={styles.stepNumber}>{index + 1}</Text>
               )}
             </View>
-            {/* <Text
-              style={[
-                styles.stepText,
-                currentStep === index + 1 && styles.activeStepText,
-              ]}
-            >
-              {step}
-            </Text> */}
           </View>
         ))}
       </View>
@@ -63,15 +55,15 @@ const Stepper = () => {
 
 const styles = StyleSheet.create({
   container: {
-   width: "100%",
-   display: "flex",
-   justifyContent: "center",
-   flexDirection: "row",
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   stepsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: "60%",
+    width: '60%',
   },
   stepItem: {
     alignItems: 'center',
@@ -81,7 +73,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: '#007bff',
+    backgroundColor: '#ddd', // Default color for incomplete steps
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 10,
@@ -95,16 +87,6 @@ const styles = StyleSheet.create({
   stepNumber: {
     color: '#fff',
     fontSize: 18,
-    fontWeight: 'bold',
-  },
-  stepText: {
-    marginTop: 6,
-    color: '#6c757d',
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  activeStepText: {
-    color: '#007bff',
     fontWeight: 'bold',
   },
 });
