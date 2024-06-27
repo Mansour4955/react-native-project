@@ -6,12 +6,17 @@ import RegisterNeeds from './RegisterNeeds';
 import RegisterDocuments from './RegisterDocuments';
 import RegisterWantedFeature from './RegisterWantedFeature';
 import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 const Register = () => {
-  const {currentStep} = useSelector(state => state.register);
+  const navigation = useNavigation();
+  const {currentStep, complete} = useSelector(state => state.register);
   const [theStep, setTheStep] = useState(currentStep);
   useEffect(() => {
     setTheStep(currentStep);
+    if (complete) {
+      navigation.navigate('Login');
+    }
   }, [currentStep]);
   return (
     <View style={styles.container}>
