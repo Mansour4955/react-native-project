@@ -40,41 +40,47 @@ const RegisterInfo = () => {
   };
 
   const sendVerificationCode = email => {
-    const newVerificationCode = Math.floor(100000 + Math.random() * 900000);
+    const newVerificationCode = 123456
+    ///Math.floor(100000 + Math.random() * 900000);
     setExpectedCode(newVerificationCode);
+    Toast.show({
+      type: 'success',
+      text1: 'Verification code successful!',
+    });
+    showVerification(true)
 
     // Prepare email parameters
-    const templateParams = {
-      to_email: email,
-      to_name: `${formData?.firstName} ${formData?.lastName}`,
-      from_name: 'Website Name',
-      message: newVerificationCode.toString(),
-    };
+    // const templateParams = {
+    //   to_email: email,
+    //   to_name: `${formData?.firstName} ${formData?.lastName}`,
+    //   from_name: 'Website Name',
+    //   message: newVerificationCode.toString(),
+    // };
 
-    // EmailJS configuration
-    const serviceId = "service_4l6xtqo"; // Replace with your EmailJS service ID
-    const templateId = "template_bylwb4s"; // Replace with your EmailJS template ID
-    const userId = "GUQmib9X6uiDr0Hws"; // Replace with your EmailJS user ID
+    // // EmailJS configuration
+    // const serviceId = "service_4l6xtqo"; // Replace with your EmailJS service ID
+    // const templateId = "template_bylwb4s"; // Replace with your EmailJS template ID
+    // const userId = "GUQmib9X6uiDr0Hws"; // Replace with your EmailJS user ID
 
-    // Send email using EmailJS
-    emailjs
-      .send(serviceId, templateId, templateParams, userId)
-      .then(response => {
-        console.log('Email sent:', response.status, response.text);
-        setShowVerification(true); // Show verification input after email is sent
-        setResendClicked(false); // Reset resend button state
-        Toast.show({
-          type: 'success',
-          text1: 'Verification code sent successfully!',
-        });
-      })
-      .catch(error => {
-        console.error('Email sending failed:', error);
-        Toast.show({
-          type: 'error',
-          text1: 'Failed to send verification code. Please try again.',
-        });
-      });
+    // // Send email using EmailJS
+  //   emailjs
+  //     .send(serviceId, templateId, templateParams, userId)
+  //     .then(response => {
+  //       console.log('Email sent:', response.status, response.text);
+  //       setShowVerification(true); // Show verification input after email is sent
+  //       setResendClicked(false); // Reset resend button state
+  //       Toast.show({
+  //         type: 'success',
+  //         text1: 'Verification code sent successfully!',
+  //       });
+  //     })
+  //     .catch(error => {
+  //       console.error('Email sending failed:', error);
+  //       Toast.show({
+  //         type: 'error',
+  //         text1: 'Failed to send verification code. Please try again.',
+  //       });
+  //     });
   };
 
   const handleVerificationSubmit = () => {
@@ -82,7 +88,7 @@ const RegisterInfo = () => {
       console.log('Verification successful');
       Toast.show({
         type: 'success',
-        text1: 'Verification successful!',
+        text1: 'Verification code successful!',
       });
       dispatch(setCurrentStep(currentStep + 1));
       setVerificationCode(''); // Clear previous verification code input
@@ -98,6 +104,7 @@ const RegisterInfo = () => {
 
   const handleResendVerification = () => {
     sendVerificationCode(formData.email); // Resend verification code
+    setResendClicked(false)
   };
 
   return (

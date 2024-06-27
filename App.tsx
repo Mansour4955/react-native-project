@@ -8,10 +8,7 @@ import store from './src/redux/store';
 import HomePage from './src/pages/HomePage';
 import Login from './src/auth/Login';
 import Register from './src/auth/register/Register';
-import RegisterInfo from './src/auth/register/RegisterInfo';
-import RegisterNeeds from './src/auth/register/RegisterNeeds';
-import RegisterDocuments from './src/auth/register/RegisterDocuments';
-import RegisterWantedFeature from './src/auth/register/RegisterWantedFeature';
+
 import NotFound from './src/pages/NotFound';
 import Header from './src/components/Header';
 
@@ -32,16 +29,6 @@ function App() {
             <Stack.Screen name="Home" component={HomePage} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Register" component={Register} />
-            {/* <Stack.Screen name="Register/RegisterInfo" component={RegisterInfo} />
-            <Stack.Screen name="Register/RegisterNeeds" component={RegisterNeeds} />
-            <Stack.Screen
-              name="Register/RegisterDocuments"
-              component={RegisterDocuments}
-            />
-            <Stack.Screen
-              name="Register/RegisterWantedFeature"
-              component={RegisterWantedFeature}
-            /> */}
             <Stack.Screen name="NotFound" component={NotFound} />
           </Stack.Navigator>
         </NavigationContainer>

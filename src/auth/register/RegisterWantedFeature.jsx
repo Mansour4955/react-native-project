@@ -70,9 +70,6 @@ const RegisterWantedFeature = () => {
     'Data Security',
     'Integration with APIs',
     'Real-time Notifications',
-    'Automated Reports',
-    'Customizable Dashboards',
-    'User Permissions',
   ];
 
   return (
