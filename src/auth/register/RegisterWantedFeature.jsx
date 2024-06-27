@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentStep, setComplete} from '../../src/redux/registerSlice';
-import {ToastAndroid} from 'react-native'; // For toast messages (Android-specific)
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, ToastAndroid } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentStep, setComplete } from '../../src/redux/registerSlice';
 
 const RegisterWantedFeature = () => {
   const dispatch = useDispatch();
-  const {currentStep} = useSelector(state => state.register);
+  const { currentStep } = useSelector(state => state.register);
 
   const [formData, setFormData] = useState({
     password: '',
@@ -34,7 +33,7 @@ const RegisterWantedFeature = () => {
   const onSubmit = () => {
     // Validate password
     if (!formData.password) {
-      setErrors({...errors, password: 'Password is required'});
+      setErrors({ ...errors, password: 'Password is required' });
       return;
     } else if (formData.password.length < 8) {
       setErrors({
@@ -46,13 +45,13 @@ const RegisterWantedFeature = () => {
 
     // Validate confirm password
     if (formData.password !== formData.confirmPassword) {
-      setErrors({...errors, confirmPassword: 'Passwords do not match'});
+      setErrors({ ...errors, confirmPassword: 'Passwords do not match' });
       return;
     }
 
     // Validate feature selection
     if (!formData.feature) {
-      setErrors({...errors, feature: 'Please select a feature'});
+      setErrors({ ...errors, feature: 'Please select a feature' });
       return;
     }
 
@@ -114,14 +113,11 @@ const RegisterWantedFeature = () => {
         <Text style={styles.label}>Select a Feature</Text>
         {featureOptions.map((option, index) => (
           <View key={index} style={styles.radioContainer}>
-            <TextInput
-              type="radio"
-              name="feature"
-              value={option}
-              checked={formData.feature === option}
-              onChange={() => handleInputChange('feature', option)}
+            <Button
+              title={option}
+              onPress={() => handleInputChange('feature', option)}
+              color={formData.feature === option ? '#007bff' : '#6c757d'}
             />
-            <Text>{option}</Text>
           </View>
         ))}
         {errors.feature && (
@@ -130,7 +126,9 @@ const RegisterWantedFeature = () => {
       </View>
 
       {/* Submit button */}
-      <Button title="Register" onPress={onSubmit} color="#007bff" />
+      <View style={styles.buttonContainer}>
+        <Button title="Register" onPress={onSubmit} color="#007bff" />
+      </View>
     </View>
   );
 };
@@ -168,13 +166,14 @@ const styles = StyleSheet.create({
     borderColor: '#dc3545',
   },
   radioContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginBottom: 5,
   },
   errorText: {
     color: '#dc3545',
     fontSize: 12,
+  },
+  buttonContainer: {
+    marginTop: 20,
   },
 });
 

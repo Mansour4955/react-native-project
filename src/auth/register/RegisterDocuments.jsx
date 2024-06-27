@@ -1,33 +1,35 @@
-import React, {useState} from 'react';
-import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
-import * as DocumentPicker from 'expo-document-picker'; // For document picking
-import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentStep} from '../../src/redux/registerSlice';
+import React, { useState } from 'react';
+import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import DocumentPicker from 'react-native-document-picker'; // For document picking
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentStep } from '../../redux/registerSlice';
 
 const RegisterDocuments = () => {
   const [error, setError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedDocumentType, setSelectedDocumentType] = useState('passport');
   const dispatch = useDispatch();
-  const {currentStep} = useSelector(state => state.register);
+  const { currentStep } = useSelector(state => state.register);
 
   // Function to handle file selection
   const handleFileChange = async () => {
     try {
-      const result = await DocumentPicker.getDocumentAsync({
-        type: '*/*', // Accept all document types
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // Accept JPEG, PNG, and PDF files
       });
 
-      if (result.type === 'success') {
-        const {name, uri} = result;
-        setSelectedFile({name, uri});
-        setError('');
+      setSelectedFile({
+        name: res.name,
+        uri: res.uri,
+      });
+      setError('');
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // User cancelled the picker
+        console.log('Document picker cancelled');
       } else {
-        setSelectedFile(null);
-        setError('No file selected');
+        console.error('DocumentPicker error:', err);
       }
-    } catch (error) {
-      console.log('DocumentPicker error:', error);
     }
   };
 

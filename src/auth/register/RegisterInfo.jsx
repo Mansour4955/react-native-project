@@ -1,19 +1,18 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
-import {useForm, Controller} from 'react-hook-form'; // For form handling
-import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentStep} from '../../src/redux/registerSlice';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { useForm, Controller } from 'react-hook-form'; // For form handling
 import emailjs from 'emailjs-com';
-import {ToastAndroid} from 'react-native-toast-android'; // For toast messages (Android-specific)
 import Toast from 'react-native-toast-message'; // For toast messages (Cross-platform)
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentStep } from '../../redux/registerSlice';
 
 const RegisterInfo = () => {
   const dispatch = useDispatch();
-  const {currentStep} = useSelector(state => state.register);
+  const { currentStep } = useSelector(state => state.register);
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm();
   const [expectedCode, setExpectedCode] = useState(null);
   const [showVerification, setShowVerification] = useState(false);
@@ -51,9 +50,9 @@ const RegisterInfo = () => {
     };
 
     // EmailJS configuration
-    const serviceId = 'service_4l6xtqo'; // Replace with your EmailJS service ID
-    const templateId = 'template_bylwb4s'; // Replace with your EmailJS template ID
-    const userId = 'GUQmib9X6uiDr0Hws'; // Replace with your EmailJS user ID
+    const serviceId = 'your_service_id'; // Replace with your EmailJS service ID
+    const templateId = 'your_template_id'; // Replace with your EmailJS template ID
+    const userId = 'your_user_id'; // Replace with your EmailJS user ID
 
     // Send email using EmailJS
     emailjs
@@ -104,7 +103,7 @@ const RegisterInfo = () => {
       <Text style={styles.label}>Email</Text>
       <Controller
         control={control}
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
             placeholder="Email"
@@ -114,7 +113,7 @@ const RegisterInfo = () => {
           />
         )}
         name="email"
-        rules={{required: 'Email is required', pattern: /^\S+@\S+$/i}}
+        rules={{ required: 'Email is required', pattern: /^\S+@\S+$/i }}
         defaultValue=""
       />
       {errors.email && (
@@ -124,7 +123,7 @@ const RegisterInfo = () => {
       <Text style={styles.label}>First Name</Text>
       <Controller
         control={control}
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
             placeholder="First Name"
@@ -133,7 +132,7 @@ const RegisterInfo = () => {
           />
         )}
         name="firstName"
-        rules={{required: 'First Name is required'}}
+        rules={{ required: 'First Name is required' }}
         defaultValue=""
       />
       {errors.firstName && (
@@ -143,7 +142,7 @@ const RegisterInfo = () => {
       <Text style={styles.label}>Last Name</Text>
       <Controller
         control={control}
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
             placeholder="Last Name"
@@ -152,7 +151,7 @@ const RegisterInfo = () => {
           />
         )}
         name="lastName"
-        rules={{required: 'Last Name is required'}}
+        rules={{ required: 'Last Name is required' }}
         defaultValue=""
       />
       {errors.lastName && (
@@ -162,7 +161,7 @@ const RegisterInfo = () => {
       <Text style={styles.label}>Birth Date</Text>
       <Controller
         control={control}
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
             placeholder="YYYY-MM-DD"
@@ -171,7 +170,7 @@ const RegisterInfo = () => {
           />
         )}
         name="birthDate"
-        rules={{required: 'Birth Date is required'}}
+        rules={{ required: 'Birth Date is required' }}
         defaultValue=""
       />
       {errors.birthDate && (
@@ -181,7 +180,7 @@ const RegisterInfo = () => {
       <Text style={styles.label}>Gender</Text>
       <Controller
         control={control}
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
             placeholder="Gender"
@@ -190,7 +189,7 @@ const RegisterInfo = () => {
           />
         )}
         name="gender"
-        rules={{required: 'Gender is required'}}
+        rules={{ required: 'Gender is required' }}
         defaultValue=""
       />
       {errors.gender && (

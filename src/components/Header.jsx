@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { DrawerActions } from '@react-navigation/native';
-import { Feather } from '@expo/vector-icons';
+import { Feather } from 'react-native-vector-icons/Feather'; // Assuming you have installed react-native-vector-icons
 import { motion } from 'framer-motion';
 
 const Header = () => {
@@ -20,7 +19,10 @@ const Header = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.logo} onPress={() => navigation.navigate('Home')}>
+        <Text
+          style={styles.logo}
+          onPress={() => navigation.navigate('Home')}
+        >
           Website
         </Text>
 
