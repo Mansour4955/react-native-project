@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
+import React, {useState} from 'react';
+import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
+import {useForm, Controller} from 'react-hook-form';
 import emailjs from 'emailjs-com';
 import Toast from 'react-native-toast-message';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentStep } from '../../redux/registerSlice';
-// import DatePicker from 'react-native-datepicker';
-// import RNPickerSelect from 'react-native-picker-select';
+import {useDispatch, useSelector} from 'react-redux';
+import {setCurrentStep} from '../../redux/registerSlice';
 
 const RegisterInfo = () => {
   const dispatch = useDispatch();
-  const { currentStep } = useSelector(state => state.register);
+  const {currentStep} = useSelector(state => state.register);
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
   } = useForm();
   const [expectedCode, setExpectedCode] = useState(null);
   const [showVerification, setShowVerification] = useState(false);
@@ -26,6 +24,8 @@ const RegisterInfo = () => {
     if (validateFormData(data)) {
       setFormData(data);
       sendVerificationCode(data.email);
+      showVerification(true);
+
     }
   };
 
@@ -40,14 +40,13 @@ const RegisterInfo = () => {
   };
 
   const sendVerificationCode = email => {
-    const newVerificationCode = 123456
+    const newVerificationCode = 123456;
     ///Math.floor(100000 + Math.random() * 900000);
     setExpectedCode(newVerificationCode);
     Toast.show({
       type: 'success',
       text1: 'Verification code successful!',
     });
-    showVerification(true)
 
     // Prepare email parameters
     // const templateParams = {
@@ -63,24 +62,24 @@ const RegisterInfo = () => {
     // const userId = "GUQmib9X6uiDr0Hws"; // Replace with your EmailJS user ID
 
     // // Send email using EmailJS
-  //   emailjs
-  //     .send(serviceId, templateId, templateParams, userId)
-  //     .then(response => {
-  //       console.log('Email sent:', response.status, response.text);
-  //       setShowVerification(true); // Show verification input after email is sent
-  //       setResendClicked(false); // Reset resend button state
-  //       Toast.show({
-  //         type: 'success',
-  //         text1: 'Verification code sent successfully!',
-  //       });
-  //     })
-  //     .catch(error => {
-  //       console.error('Email sending failed:', error);
-  //       Toast.show({
-  //         type: 'error',
-  //         text1: 'Failed to send verification code. Please try again.',
-  //       });
-  //     });
+    //   emailjs
+    //     .send(serviceId, templateId, templateParams, userId)
+    //     .then(response => {
+    //       console.log('Email sent:', response.status, response.text);
+    //       setShowVerification(true); // Show verification input after email is sent
+    //       setResendClicked(false); // Reset resend button state
+    //       Toast.show({
+    //         type: 'success',
+    //         text1: 'Verification code sent successfully!',
+    //       });
+    //     })
+    //     .catch(error => {
+    //       console.error('Email sending failed:', error);
+    //       Toast.show({
+    //         type: 'error',
+    //         text1: 'Failed to send verification code. Please try again.',
+    //       });
+    //     });
   };
 
   const handleVerificationSubmit = () => {
@@ -104,119 +103,12 @@ const RegisterInfo = () => {
 
   const handleResendVerification = () => {
     sendVerificationCode(formData.email); // Resend verification code
-    setResendClicked(false)
+    setResendClicked(false);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Email</Text>
-      <Controller
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            keyboardType="email-address"
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="email"
-        rules={{ required: 'Email is required', pattern: /^\S+@\S+$/i }}
-        defaultValue=""
-      />
-      {errors.email && (
-        <Text style={styles.errorText}>{errors.email.message}</Text>
-      )}
-
-      <Text style={styles.label}>First Name</Text>
-      <Controller
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="First Name"
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="firstName"
-        rules={{ required: 'First Name is required' }}
-        defaultValue=""
-      />
-      {errors.firstName && (
-        <Text style={styles.errorText}>{errors.firstName.message}</Text>
-      )}
-
-      <Text style={styles.label}>Last Name</Text>
-      <Controller
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Last Name"
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="lastName"
-        rules={{ required: 'Last Name is required' }}
-        defaultValue=""
-      />
-      {errors.lastName && (
-        <Text style={styles.errorText}>{errors.lastName.message}</Text>
-      )}
-
-
-
-<Text style={styles.label}>Birth Date</Text>
-      <Controller
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Select date"
-            format="YYYY-MM-DD"
-            minDate="1900-01-01"
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="birthDate"
-        rules={{ required: 'Birth Date is required' }}
-        defaultValue=""
-      />
-     {errors.birthDate && (
-        <Text style={styles.errorText}>{errors.birthDate.message}</Text>
-      )} 
-
-
-<Text style={styles.label}>Gender</Text>
-      <Controller
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder={{
-              label: 'Select Gender',
-              value: null,
-            }}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-        name="gender"
-        rules={{ required: 'Gender is required' }}
-        defaultValue=""
-      />
-    {errors.gender && (
-        <Text style={styles.errorText}>{errors.gender.message}</Text>
-      )} 
-  
-
-      <Button onPress={handleSubmit(onSubmit)} title="Next" color="#007bff" />
-
-      {showVerification && (
+       {showVerification && (
         <View style={styles.verificationContainer}>
           <Text style={styles.label}>
             Enter Verification Code (sent to {formData?.email})
@@ -243,13 +135,114 @@ const RegisterInfo = () => {
           </View>
         </View>
       )}
+      <Text style={styles.label}>Email</Text>
+      <Controller
+        control={control}
+        render={({field: {onChange, value}}) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            keyboardType="email-address"
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="email"
+        rules={{required: 'Email is required', pattern: /^\S+@\S+$/i}}
+        defaultValue=""
+      />
+      {errors.email && (
+        <Text style={styles.errorText}>{errors.email.message}</Text>
+      )}
+
+      <Text style={styles.label}>First Name</Text>
+      <Controller
+        control={control}
+        render={({field: {onChange, value}}) => (
+          <TextInput
+            style={styles.input}
+            placeholder="First Name"
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="firstName"
+        rules={{required: 'First Name is required'}}
+        defaultValue=""
+      />
+      {errors.firstName && (
+        <Text style={styles.errorText}>{errors.firstName.message}</Text>
+      )}
+
+      <Text style={styles.label}>Last Name</Text>
+      <Controller
+        control={control}
+        render={({field: {onChange, value}}) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Last Name"
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="lastName"
+        rules={{required: 'Last Name is required'}}
+        defaultValue=""
+      />
+      {errors.lastName && (
+        <Text style={styles.errorText}>{errors.lastName.message}</Text>
+      )}
+
+      <Text style={styles.label}>Birth Date</Text>
+      <Controller
+        control={control}
+        render={({field: {onChange, value}}) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Select date"
+            format="YYYY-MM-DD"
+            minDate="1900-01-01"
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="birthDate"
+        rules={{required: 'Birth Date is required'}}
+        defaultValue=""
+      />
+      {errors.birthDate && (
+        <Text style={styles.errorText}>{errors.birthDate.message}</Text>
+      )}
+
+      <Text style={styles.label}>Gender</Text>
+      <Controller
+        control={control}
+        render={({field: {onChange, value}}) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Select Gender"
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="gender"
+        rules={{required: 'Gender is required'}}
+        defaultValue=""
+      />
+      {errors.gender && (
+        <Text style={styles.errorText}>{errors.gender.message}</Text>
+      )}
+
+      <Button onPress={handleSubmit(onSubmit)} title="Next" color="#007bff" />
+
+     
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: '100%',
     flex: 1,
     padding: 20,
     backgroundColor: '#ffffff',
@@ -273,7 +266,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   verificationContainer: {
-    marginTop: 20,
+    marginBottom: 20,
   },
   buttonContainer: {
     flexDirection: 'row',
