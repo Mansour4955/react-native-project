@@ -46,14 +46,14 @@ const Stepper = () => {
                 <Text style={styles.stepNumber}>{index + 1}</Text>
               )}
             </View>
-            <Text
+            {/* <Text
               style={[
                 styles.stepText,
                 currentStep === index + 1 && styles.activeStepText,
               ]}
             >
               {step}
-            </Text>
+            </Text> */}
           </View>
         ))}
       </View>
@@ -63,14 +63,15 @@ const Stepper = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(0, 0, 0, 0.24)',
+   width: "100%",
+   display: "flex",
+   justifyContent: "center",
+   flexDirection: "row",
   },
   stepsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    width: "60%",
   },
   stepItem: {
     alignItems: 'center',
