@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { useForm, Controller } from 'react-hook-form'; // For form handling
+import { useForm, Controller } from 'react-hook-form';
 import emailjs from 'emailjs-com';
-import Toast from 'react-native-toast-message'; // For toast messages (Cross-platform)
+import Toast from 'react-native-toast-message';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentStep } from '../../redux/registerSlice';
+// import DatePicker from 'react-native-datepicker';
+// import RNPickerSelect from 'react-native-picker-select';
 
 const RegisterInfo = () => {
   const dispatch = useDispatch();
@@ -50,9 +52,9 @@ const RegisterInfo = () => {
     };
 
     // EmailJS configuration
-    const serviceId = 'your_service_id'; // Replace with your EmailJS service ID
-    const templateId = 'your_template_id'; // Replace with your EmailJS template ID
-    const userId = 'your_user_id'; // Replace with your EmailJS user ID
+    const serviceId = "service_4l6xtqo"; // Replace with your EmailJS service ID
+    const templateId = "template_bylwb4s"; // Replace with your EmailJS template ID
+    const userId = "GUQmib9X6uiDr0Hws"; // Replace with your EmailJS user ID
 
     // Send email using EmailJS
     emailjs
@@ -157,16 +159,20 @@ const RegisterInfo = () => {
       {errors.lastName && (
         <Text style={styles.errorText}>{errors.lastName.message}</Text>
       )}
-
+{/* 
       <Text style={styles.label}>Birth Date</Text>
       <Controller
         control={control}
         render={({ field: { onChange, value } }) => (
-          <TextInput
+          <DatePicker
             style={styles.input}
-            placeholder="YYYY-MM-DD"
-            onChangeText={onChange}
-            value={value}
+            date={value}
+            mode="date"
+            placeholder="Select date"
+            format="YYYY-MM-DD"
+            minDate="1900-01-01"
+            maxDate={new Date().toISOString().split('T')[0]}
+            onDateChange={onChange}
           />
         )}
         name="birthDate"
@@ -175,17 +181,25 @@ const RegisterInfo = () => {
       />
       {errors.birthDate && (
         <Text style={styles.errorText}>{errors.birthDate.message}</Text>
-      )}
-
+      )} */}
+{/* 
       <Text style={styles.label}>Gender</Text>
       <Controller
         control={control}
         render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Gender"
-            onChangeText={onChange}
+          <RNPickerSelect
+            style={pickerSelectStyles}
+            onValueChange={onChange}
             value={value}
+            placeholder={{
+              label: 'Select Gender',
+              value: null,
+            }}
+            items={[
+              { label: 'Male', value: 'male' },
+              { label: 'Female', value: 'female' },
+              { label: 'Other', value: 'other' },
+            ]}
           />
         )}
         name="gender"
@@ -194,7 +208,7 @@ const RegisterInfo = () => {
       />
       {errors.gender && (
         <Text style={styles.errorText}>{errors.gender.message}</Text>
-      )}
+      )} */}
 
       <Button onPress={handleSubmit(onSubmit)} title="Next" color="#007bff" />
 
@@ -231,6 +245,7 @@ const RegisterInfo = () => {
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
     flex: 1,
     padding: 20,
     backgroundColor: '#ffffff',
@@ -260,6 +275,31 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 10,
+  },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 5,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+    marginBottom: 10,
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 5,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+    marginBottom: 10,
   },
 });
 

@@ -22,18 +22,26 @@ function App() {
     <SafeAreaProvider>
       <Provider store={store}>
         <NavigationContainer>
-          {/* <View style={styles.container}>
+          {/* <View>
             <Text>HomePage aaaaaaaa</Text>
           </View> */}
-          {/* <Header/> */}
-          <Stack.Navigator initialRouteName="Home">
+          <Header />
+          <Stack.Navigator
+            initialRouteName="Home"
+            screenOptions={{headerShown: false}}>
             <Stack.Screen name="Home" component={HomePage} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Register" component={Register} />
-            <Stack.Screen name="RegisterInfo" component={RegisterInfo} />
-            <Stack.Screen name="RegisterNeeds" component={RegisterNeeds} />
-            <Stack.Screen name="RegisterDocuments" component={RegisterDocuments} />
-            <Stack.Screen name="RegisterWantedFeature" component={RegisterWantedFeature} />
+            {/* <Stack.Screen name="Register/RegisterInfo" component={RegisterInfo} />
+            <Stack.Screen name="Register/RegisterNeeds" component={RegisterNeeds} />
+            <Stack.Screen
+              name="Register/RegisterDocuments"
+              component={RegisterDocuments}
+            />
+            <Stack.Screen
+              name="Register/RegisterWantedFeature"
+              component={RegisterWantedFeature}
+            /> */}
             <Stack.Screen name="NotFound" component={NotFound} />
           </Stack.Navigator>
         </NavigationContainer>
