@@ -1,31 +1,31 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
-import {useForm, Controller} from 'react-hook-form';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
 import emailjs from 'emailjs-com';
 import Toast from 'react-native-toast-message';
-import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentStep} from '../../redux/registerSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentStep } from '../../redux/registerSlice';
 
 const RegisterInfo = () => {
   const dispatch = useDispatch();
-  const {currentStep} = useSelector(state => state.register);
+  const { currentStep } = useSelector(state => state.register);
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm();
   const [expectedCode, setExpectedCode] = useState(null);
   const [showVerification, setShowVerification] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
   const [formData, setFormData] = useState(null);
-  const [resendClicked, setResendClicked] = useState(false); // State to manage resend button click
+  const [resendClicked, setResendClicked] = useState(false);
 
   const onSubmit = data => {
     if (validateFormData(data)) {
       setFormData(data);
       sendVerificationCode(data.email);
-      showVerification(true);
-
+      setShowVerification(true);
+     
     }
   };
 
@@ -40,15 +40,14 @@ const RegisterInfo = () => {
   };
 
   const sendVerificationCode = email => {
-    const newVerificationCode = 123456;
-    ///Math.floor(100000 + Math.random() * 900000);
+    const newVerificationCode = 123456
     setExpectedCode(newVerificationCode);
     Toast.show({
       type: 'success',
-      text1: 'Verification code successful!',
+      text1: 'Sent Verification code successful!',
     });
 
-    // Prepare email parameters
+    // EmailJS configuration
     // const templateParams = {
     //   to_email: email,
     //   to_name: `${formData?.firstName} ${formData?.lastName}`,
@@ -56,30 +55,28 @@ const RegisterInfo = () => {
     //   message: newVerificationCode.toString(),
     // };
 
-    // // EmailJS configuration
     // const serviceId = "service_4l6xtqo"; // Replace with your EmailJS service ID
     // const templateId = "template_bylwb4s"; // Replace with your EmailJS template ID
     // const userId = "GUQmib9X6uiDr0Hws"; // Replace with your EmailJS user ID
 
-    // // Send email using EmailJS
-    //   emailjs
-    //     .send(serviceId, templateId, templateParams, userId)
-    //     .then(response => {
-    //       console.log('Email sent:', response.status, response.text);
-    //       setShowVerification(true); // Show verification input after email is sent
-    //       setResendClicked(false); // Reset resend button state
-    //       Toast.show({
-    //         type: 'success',
-    //         text1: 'Verification code sent successfully!',
-    //       });
-    //     })
-    //     .catch(error => {
-    //       console.error('Email sending failed:', error);
-    //       Toast.show({
-    //         type: 'error',
-    //         text1: 'Failed to send verification code. Please try again.',
-    //       });
+    // emailjs
+    //   .send(serviceId, templateId, templateParams, userId)
+    //   .then(response => {
+    //     console.log('Email sent:', response.status, response.text);
+    //     setShowVerification(true);
+    //     setResendClicked(false);
+    //     Toast.show({
+    //       type: 'success',
+    //       text1: 'Verification code sent successfully!',
     //     });
+    //   })
+    //   .catch(error => {
+    //     console.error('Email sending failed:', error);
+    //     Toast.show({
+    //       type: 'error',
+    //       text1: 'Failed to send verification code. Please try again.',
+    //     });
+    //   });
   };
 
   const handleVerificationSubmit = () => {
@@ -90,25 +87,25 @@ const RegisterInfo = () => {
         text1: 'Verification code successful!',
       });
       dispatch(setCurrentStep(currentStep + 1));
-      setVerificationCode(''); // Clear previous verification code input
+      setVerificationCode('');
     } else {
       Toast.show({
         type: 'error',
         text1: 'Incorrect verification code. Please try again.',
       });
-      setVerificationCode(''); // Clear previous verification code input
-      setResendClicked(true); // Set resend button clicked state
+      setVerificationCode('');
+      setResendClicked(true);
     }
   };
 
   const handleResendVerification = () => {
-    sendVerificationCode(formData.email); // Resend verification code
+    sendVerificationCode(formData.email);
     setResendClicked(false);
   };
 
   return (
     <View style={styles.container}>
-       {showVerification && (
+      {showVerification && (
         <View style={styles.verificationContainer}>
           <Text style={styles.label}>
             Enter Verification Code (sent to {formData?.email})
@@ -138,7 +135,7 @@ const RegisterInfo = () => {
       <Text style={styles.label}>Email</Text>
       <Controller
         control={control}
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
             placeholder="Email"
@@ -148,7 +145,7 @@ const RegisterInfo = () => {
           />
         )}
         name="email"
-        rules={{required: 'Email is required', pattern: /^\S+@\S+$/i}}
+        rules={{ required: 'Email is required', pattern: /^\S+@\S+$/i }}
         defaultValue=""
       />
       {errors.email && (
@@ -158,7 +155,7 @@ const RegisterInfo = () => {
       <Text style={styles.label}>First Name</Text>
       <Controller
         control={control}
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
             placeholder="First Name"
@@ -167,7 +164,7 @@ const RegisterInfo = () => {
           />
         )}
         name="firstName"
-        rules={{required: 'First Name is required'}}
+        rules={{ required: 'First Name is required' }}
         defaultValue=""
       />
       {errors.firstName && (
@@ -177,7 +174,7 @@ const RegisterInfo = () => {
       <Text style={styles.label}>Last Name</Text>
       <Controller
         control={control}
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
             placeholder="Last Name"
@@ -186,7 +183,7 @@ const RegisterInfo = () => {
           />
         )}
         name="lastName"
-        rules={{required: 'Last Name is required'}}
+        rules={{ required: 'Last Name is required' }}
         defaultValue=""
       />
       {errors.lastName && (
@@ -196,7 +193,7 @@ const RegisterInfo = () => {
       <Text style={styles.label}>Birth Date</Text>
       <Controller
         control={control}
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
             placeholder="Select date"
@@ -207,7 +204,7 @@ const RegisterInfo = () => {
           />
         )}
         name="birthDate"
-        rules={{required: 'Birth Date is required'}}
+        rules={{ required: 'Birth Date is required' }}
         defaultValue=""
       />
       {errors.birthDate && (
@@ -217,7 +214,7 @@ const RegisterInfo = () => {
       <Text style={styles.label}>Gender</Text>
       <Controller
         control={control}
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
             placeholder="Select Gender"
@@ -226,7 +223,7 @@ const RegisterInfo = () => {
           />
         )}
         name="gender"
-        rules={{required: 'Gender is required'}}
+        rules={{ required: 'Gender is required' }}
         defaultValue=""
       />
       {errors.gender && (
@@ -234,8 +231,6 @@ const RegisterInfo = () => {
       )}
 
       <Button onPress={handleSubmit(onSubmit)} title="Next" color="#007bff" />
-
-     
     </View>
   );
 };
@@ -272,31 +267,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 10,
-  },
-});
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
-    marginBottom: 10,
-  },
-  inputAndroid: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
-    marginBottom: 10,
   },
 });
 

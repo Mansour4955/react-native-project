@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ToastAndroid } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ToastAndroid, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentStep, setComplete } from '../../redux/registerSlice';
-
 
 const RegisterWantedFeature = () => {
   const dispatch = useDispatch();
@@ -110,13 +109,21 @@ const RegisterWantedFeature = () => {
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Select a Feature</Text>
         {featureOptions.map((option, index) => (
-          <View key={index} style={styles.radioContainer}>
-            <Button
-              title={option}
-              onPress={() => handleInputChange('feature', option)}
-              color={formData.feature === option ? '#007bff' : '#6c757d'}
-            />
-          </View>
+          <TouchableOpacity
+            key={index}
+            style={[
+              styles.featureButton,
+              formData.feature === option && styles.featureButtonSelected
+            ]}
+            onPress={() => handleInputChange('feature', option)}
+          >
+            <Text style={[
+              styles.featureButtonText,
+              formData.feature === option && styles.featureButtonTextSelected
+            ]}>
+              {option}
+            </Text>
+          </TouchableOpacity>
         ))}
         {errors.feature && (
           <Text style={styles.errorText}>{errors.feature}</Text>
@@ -133,7 +140,7 @@ const RegisterWantedFeature = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: '100%',
     flex: 1,
     padding: 20,
     backgroundColor: '#ffffff',
@@ -170,6 +177,24 @@ const styles = StyleSheet.create({
   errorText: {
     color: '#dc3545',
     fontSize: 12,
+  },
+  featureButton: {
+    padding: 10,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#6c757d',
+    marginBottom: 5,
+  },
+  featureButtonSelected: {
+    backgroundColor: '#007bff',
+    borderColor: '#007bff',
+  },
+  featureButtonText: {
+    fontSize: 16,
+    color: '#6c757d',
+  },
+  featureButtonTextSelected: {
+    color: '#ffffff',
   },
   buttonContainer: {
     marginTop: 20,
