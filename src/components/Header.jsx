@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from 'react-native-vector-icons/Feather'; // Assuming you have installed react-native-vector-icons
-import { motion } from 'framer-motion';
 
 const Header = () => {
   const navigation = useNavigation();
@@ -38,10 +37,8 @@ const Header = () => {
       </View>
 
       {showLinks && (
-        <motion.View
-          initial={{ y: -15, opacity: 0 }}
-          animate={{ y: 1, opacity: 1 }}
-          transition={{ duration: 0.3 }}
+        <View
+        
           style={styles.linksContainer}
         >
           <TouchableOpacity
@@ -89,7 +86,7 @@ const Header = () => {
           >
             <Text style={styles.linkText}>Register</Text>
           </TouchableOpacity>
-        </motion.View>
+        </View>
       )}
     </View>
   );

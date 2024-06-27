@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import DocumentPicker from 'react-native-document-picker'; // For document picking
+import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentStep } from '../../redux/registerSlice';
 
@@ -8,28 +7,20 @@ const RegisterDocuments = () => {
   const [error, setError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedDocumentType, setSelectedDocumentType] = useState('passport');
+  const [filePath, setFilePath] = useState('');
   const dispatch = useDispatch();
   const { currentStep } = useSelector(state => state.register);
 
   // Function to handle file selection
-  const handleFileChange = async () => {
-    try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.images, DocumentPicker.types.pdf], // Accept JPEG, PNG, and PDF files
-      });
-
+  const handleFileChange = () => {
+    if (filePath) {
       setSelectedFile({
-        name: res.name,
-        uri: res.uri,
+        name: filePath.split('/').pop(),
+        uri: filePath,
       });
       setError('');
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-        // User cancelled the picker
-        console.log('Document picker cancelled');
-      } else {
-        console.error('DocumentPicker error:', err);
-      }
+    } else {
+      setError('Please provide a valid file path');
     }
   };
 
@@ -62,6 +53,12 @@ const RegisterDocuments = () => {
       <Text style={styles.label}>
         Upload Document for Identity Verification
       </Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Enter file path"
+        value={filePath}
+        onChangeText={setFilePath}
+      />
       <TouchableOpacity onPress={handleFileChange} style={styles.uploadButton}>
         <Text style={styles.uploadButtonText}>Select Document</Text>
       </TouchableOpacity>
@@ -105,6 +102,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 5,
+  },
+  input: {
+    height: 40,
+    borderColor: '#cccccc',
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    marginBottom: 10,
   },
   uploadButton: {
     backgroundColor: '#007bff',

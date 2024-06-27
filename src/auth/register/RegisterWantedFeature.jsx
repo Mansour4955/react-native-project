@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ToastAndroid } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentStep, setComplete } from '../../src/redux/registerSlice';
+import { setCurrentStep, setComplete } from '../../redux/registerSlice';
+
 
 const RegisterWantedFeature = () => {
   const dispatch = useDispatch();
