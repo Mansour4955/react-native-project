@@ -1,8 +1,11 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import Toast from 'react-native-toast-message';
 
 const Login = () => {
+  const navigation = useNavigation();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -49,7 +52,7 @@ const Login = () => {
     // If validations pass, you can proceed with authentication logic
     console.log('Form data:', formData);
     // Example: Call an API to authenticate the user
-
+    navigation.navigate('Home');
     // Simulate a successful login with toast message
     Toast.show({
       type: 'success',

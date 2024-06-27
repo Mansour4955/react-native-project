@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import Stepper from '../../helpers/Stepper';
 import RegisterInfo from './RegisterInfo';
 import RegisterNeeds from './RegisterNeeds';
@@ -12,8 +12,9 @@ const Register = () => {
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
+        {/* Assuming Stepper manages the step navigation */}
         <Stepper />
-         {/* Assuming Stepper manages the step navigation */}
+        {/* Assuming Stepper manages the step navigation */}
         {/* Replace this with specific screens or components */}
         {/* based on your navigation structure in React Native */}
         <View style={styles.outletContainer}>

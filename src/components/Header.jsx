@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Feather } from 'react-native-vector-icons/Feather'; // Assuming you have installed react-native-vector-icons
-import { motion } from 'framer-motion';
+import React, {useState} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const Header = () => {
   const navigation = useNavigation();
@@ -17,40 +15,27 @@ const Header = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[{...styles.container, paddingBottom: showLinks ? 0 : 10}]}>
       <View style={styles.header}>
-        <Text
-          style={styles.logo}
-          onPress={() => navigation.navigate('Home')}
-        >
+        <Text style={styles.logo} onPress={() => navigation.navigate('Home')}>
           Website
         </Text>
 
         <View style={styles.menu}>
           <TouchableOpacity onPress={toggleLinks}>
-            {showLinks ? (
-              <Feather name="x" size={24} color="#333" />
-            ) : (
-              <Feather name="menu" size={24} color="#333" />
-            )}
+            <Text style={styles.menuIcon}>{showLinks ? '✕' : '☰'}</Text>
           </TouchableOpacity>
         </View>
       </View>
 
       {showLinks && (
-        <motion.View
-          initial={{ y: -15, opacity: 0 }}
-          animate={{ y: 1, opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          style={styles.linksContainer}
-        >
+        <View style={styles.linksContainer}>
           <TouchableOpacity
             style={styles.link}
             onPress={() => {
               navigation.navigate('Home');
               closeLinks();
-            }}
-          >
+            }}>
             <Text style={styles.linkText}>Home</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -58,8 +43,7 @@ const Header = () => {
             onPress={() => {
               navigation.navigate('Services');
               closeLinks();
-            }}
-          >
+            }}>
             <Text style={styles.linkText}>Services</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -67,8 +51,7 @@ const Header = () => {
             onPress={() => {
               navigation.navigate('About');
               closeLinks();
-            }}
-          >
+            }}>
             <Text style={styles.linkText}>About</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -76,8 +59,7 @@ const Header = () => {
             onPress={() => {
               navigation.navigate('Login');
               closeLinks();
-            }}
-          >
+            }}>
             <Text style={styles.linkText}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -85,11 +67,10 @@ const Header = () => {
             onPress={() => {
               navigation.navigate('Register');
               closeLinks();
-            }}
-          >
+            }}>
             <Text style={styles.linkText}>Register</Text>
           </TouchableOpacity>
-        </motion.View>
+        </View>
       )}
     </View>
   );
@@ -97,7 +78,8 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
+    paddingTop: 10,
+    // paddingBottom: 10,
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
@@ -111,10 +93,14 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#007bff',
   },
   menu: {
     marginRight: 10,
+  },
+  menuIcon: {
+    fontSize: 24,
+    color: '#007bff',
   },
   linksContainer: {
     flexDirection: 'column',
