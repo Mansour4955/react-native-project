@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import Stepper from '../../helpers/Stepper';
 import RegisterInfo from './RegisterInfo';
@@ -9,6 +9,10 @@ import {useSelector} from 'react-redux';
 
 const Register = () => {
   const {currentStep} = useSelector(state => state.register);
+  const [theStep, setTheStep] = useState(currentStep);
+  useEffect(() => {
+    setTheStep(currentStep);
+  }, [currentStep]);
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
@@ -18,10 +22,10 @@ const Register = () => {
         {/* Replace this with specific screens or components */}
         {/* based on your navigation structure in React Native */}
         <View style={styles.outletContainer}>
-          {currentStep === 1 && <RegisterInfo />}
-          {currentStep === 2 && <RegisterNeeds />}
-          {currentStep === 3 && <RegisterDocuments />}
-          {currentStep === 4 && <RegisterWantedFeature />}
+          {theStep === 1 && <RegisterInfo />}
+          {theStep === 2 && <RegisterNeeds />}
+          {theStep === 3 && <RegisterDocuments />}
+          {theStep === 4 && <RegisterWantedFeature />}
         </View>
       </View>
     </View>

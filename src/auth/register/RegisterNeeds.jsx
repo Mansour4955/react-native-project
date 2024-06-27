@@ -13,7 +13,7 @@ const RegisterNeeds = () => {
   const [selectedNeeds, setSelectedNeeds] = useState(Array(6).fill(false));
 
   const dispatch = useDispatch();
-  const currentStep = useSelector(state => state.currentStep); // Adjust according to your state structure
+  const {currentStep} = useSelector(state => state.register); // Adjust according to your state structure
 
   const toggleRecording = async () => {
     if (!recording) {

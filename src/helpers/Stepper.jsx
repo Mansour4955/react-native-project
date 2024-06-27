@@ -8,18 +8,18 @@ const Stepper = () => {
   const navigation = useNavigation();
   const { currentStep, complete } = useSelector((state) => state.register);
 
-  useEffect(() => {
-    if (currentStep === 2) {
-      navigation.navigate('RegisterNeeds');
-    } else if (currentStep === 3) {
-      navigation.navigate('RegisterDocuments');
-    } else if (currentStep === 4) {
-      navigation.navigate('RegisterWantedFeature');
-    }
-    if (complete) {
-      navigation.navigate('Login');
-    }
-  }, [currentStep, complete, navigation]);
+  // useEffect(() => {
+  //   if (currentStep === 2) {
+  //     navigation.navigate('RegisterNeeds');
+  //   } else if (currentStep === 3) {
+  //     navigation.navigate('RegisterDocuments');
+  //   } else if (currentStep === 4) {
+  //     navigation.navigate('RegisterWantedFeature');
+  //   }
+  //   if (complete) {
+  //     navigation.navigate('Login');
+  //   }
+  // }, [currentStep, complete, navigation]);
 
   const steps = [
     'User Information',
