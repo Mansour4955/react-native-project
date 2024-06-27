@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
 import * as DocumentPicker from 'expo-document-picker'; // For document picking
 import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentStep} from '../../redux/registerSlice';
+import {setCurrentStep} from '../../src/redux/registerSlice';
 
 const RegisterDocuments = () => {
   const [error, setError] = useState('');

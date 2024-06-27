@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { TiTick } from 'react-icons/ti';
+import Icon from 'react-native-vector-icons/MaterialIcons'; // Example icon import
 
 const Stepper = () => {
   const navigation = useNavigation();
@@ -41,7 +41,7 @@ const Stepper = () => {
               ]}
             >
               {index + 1 < currentStep || complete ? (
-                <TiTick size={24} />
+                <Icon name="check" size={24} color="#fff" />
               ) : (
                 <Text style={styles.stepNumber}>{index + 1}</Text>
               )}
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: 'rgba(0, 0, 0, 0.24)',
   },
   stepsContainer: {
     flexDirection: 'row',
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   },
   stepItem: {
     alignItems: 'center',
+    position: 'relative',
   },
   stepCircle: {
     width: 36,
@@ -82,9 +83,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#007bff',
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 10,
   },
   completeStep: {
-    backgroundColor: '#28a745', // Green color for completed steps
+    backgroundColor: '#007bff', // Blue color for completed steps
   },
   activeStep: {
     backgroundColor: '#007bff', // Blue color for active step

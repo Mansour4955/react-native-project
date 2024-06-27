@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react';
 import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 import {RiMicFill} from 'react-icons/ri'; // Not supported in React Native
 import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentStep} from '../../redux/registerSlice';
+import {setCurrentStep} from '../../src/redux/registerSlice';
 import {ToastAndroid} from 'react-native'; // For toast messages (Android-specific)
 import {Audio} from 'expo-av'; // For audio recording and playback in Expo
 

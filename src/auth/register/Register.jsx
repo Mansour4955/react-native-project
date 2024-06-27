@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import Stepper from '../../helpers/Stepper'; // Adjust the path as per your project structure
+import Stepper from '../../src/helpers/Stepper'; // Adjust the path as per your project structure
 import RegisterInfo from './RegisterInfo';
 import RegisterNeeds from './RegisterNeeds';
 import RegisterDocuments from './RegisterDocuments';

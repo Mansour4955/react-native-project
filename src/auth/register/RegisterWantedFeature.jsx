@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentStep, setComplete} from '../../redux/registerSlice';
+import {setCurrentStep, setComplete} from '../../src/redux/registerSlice';
 import {ToastAndroid} from 'react-native'; // For toast messages (Android-specific)
 
 const RegisterWantedFeature = () => {

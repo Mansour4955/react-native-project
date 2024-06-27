@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 import {useForm, Controller} from 'react-hook-form'; // For form handling
 import {useDispatch, useSelector} from 'react-redux';
-import {setCurrentStep} from '../../redux/registerSlice';
+import {setCurrentStep} from '../../src/redux/registerSlice';
 import emailjs from 'emailjs-com';
 import {ToastAndroid} from 'react-native-toast-android'; // For toast messages (Android-specific)
 import Toast from 'react-native-toast-message'; // For toast messages (Cross-platform)
