@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ToastAndroid, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentStep, setComplete } from '../../redux/registerSlice';
+import { useNavigation } from '@react-navigation/native';
 
 const RegisterWantedFeature = () => {
+  const navigation =useNavigation()
   const dispatch = useDispatch();
   const { currentStep } = useSelector(state => state.register);
 
@@ -59,6 +61,8 @@ const RegisterWantedFeature = () => {
     ToastAndroid.show('Registered successfully', ToastAndroid.LONG);
     dispatch(setCurrentStep(currentStep + 1));
     dispatch(setComplete(true));
+    navigation.navigate("Login")
+    
   };
 
   const featureOptions = [
