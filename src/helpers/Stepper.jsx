@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialIcons'; // Example icon import
+import React, {useEffect} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 const Stepper = () => {
   const navigation = useNavigation();
-  const { currentStep, complete } = useSelector((state) => state.register);
+  const {currentStep, complete} = useSelector(state => state.register);
 
   useEffect(() => {
     if (currentStep === 2) {
@@ -38,10 +37,9 @@ const Stepper = () => {
                 styles.stepCircle,
                 index + 1 < currentStep && styles.completeStep,
                 (currentStep === index + 1 || complete) && styles.activeStep,
-              ]}
-            >
-              {(index + 1 < currentStep || (complete && index + 1 <= 4)) ? (
-                <Icon name="check" size={24} color="#fff" />
+              ]}>
+              {index + 1 < currentStep || (complete && index + 1 <= 4) ? (
+                <Text style={styles.iconText}>✔️</Text>
               ) : (
                 <Text style={styles.stepNumber}>{index + 1}</Text>
               )}
@@ -88,6 +86,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  iconText: {
+    color: 'white', // White color
+    fontSize: 20, // Smaller size
   },
 });
 
