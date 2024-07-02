@@ -21,11 +21,7 @@ const Register = () => {
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
-        {/* Assuming Stepper manages the step navigation */}
         <Stepper />
-        {/* Assuming Stepper manages the step navigation */}
-        {/* Replace this with specific screens or components */}
-        {/* based on your navigation structure in React Native */}
         <View style={styles.outletContainer}>
           {theStep === 1 && <RegisterInfo />}
           {theStep === 2 && <RegisterNeeds />}
